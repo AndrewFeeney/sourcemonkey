@@ -2,7 +2,7 @@
     "name": "webspanner/sourcemonkey",
     "autoload": {
         "psr-4": {
-            "WebSpanner\\SourceMonkey\\": "src/"
+            "WebSpanner\\": "src/"
         }
     },
     "require-dev": {
