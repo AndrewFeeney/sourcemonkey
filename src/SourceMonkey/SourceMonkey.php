@@ -1,8 +1,9 @@
 <?php
 
-namespace WebSpanner;
+namespace WebSpanner\SourceMonkey;
 
 use WebSpanner\SourceMonkey\Exceptions\MonkeyNeedsAFileException;
+use WebSpanner\SourceMonkey\Models\PHPClass;
 
 class SourceMonkey
 {
@@ -54,6 +55,23 @@ class SourceMonkey
         }
 
         return $this->path;
+    }
+
+    /**
+     * Get the property matching the given name from the source file and return
+     * it as a Property model object or null if it does not exist
+     *
+     * @param string $propertyName
+     * @return Models\Property|null
+     **/
+    public function getProperty($propertyName)
+    {
+        return $this->getClass()->getProperty($propertyName);
+    }
+
+    public function getClass()
+    {
+        return (new PHPClass($this->getPath()));
     }
 
     /**
