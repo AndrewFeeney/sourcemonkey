@@ -5,12 +5,17 @@
             "WebSpanner\\": "src/"
         }
     },
+    "type": "library",
     "require-dev": {
-        "phpunit/phpunit": "4.*"
+        "phpunit/phpunit": "4.*",
+        "larapack/dd": "1.*"
     },
     "autoload-dev": {
         "psr-4": {
             "WebSpanner\\SourceMonkey\\Tests\\": "tests/"
         }
+    },
+    "require": {
+        "illuminate/support": "^5.4"
     }
 }

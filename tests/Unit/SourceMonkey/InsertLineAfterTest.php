@@ -2,7 +2,7 @@
 
 namespace WebSpanner\SourceMonkey\Tests\Unit\SourceMonkey;
 
-use WebSpanner\SourceMonkey;
+use WebSpanner\SourceMonkey\SourceMonkey;
 use WebSpanner\SourceMonkey\Tests\TestCase;
 
 class InsertLineAfterTest extends TestCase
