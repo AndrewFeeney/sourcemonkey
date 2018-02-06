@@ -2,6 +2,8 @@
 
 namespace WebSpanner\SourceMonkey\Models;
 
+use Illuminate\Support\Str as IlluminateStr;
+
 class PHPClass
 {
     public function __construct($path = null)
@@ -11,7 +13,7 @@ class PHPClass
 
     public function getProperty($propertyName)
     {
-        $propertyNames = collect(new \SplFileObject($this->path))->keyBy(function ($line, $index) {
+        $propertyLines = collect(new \SplFileObject($this->path))->keyBy(function ($line, $index) {
             return $index + 1;
         })->filter(function ($line, $index) {
             return (new Str($line))->containsPropertyDeclaration();
@@ -19,6 +21,13 @@ class PHPClass
             return (new Str($propertyLine))->getVariableName() == $propertyName;
         });
 
-        dd($propertyNames);
+        return $propertyLines->map(function ($line) {
+            return trim(
+                IlluminateStr::before(
+                IlluminateStr::after($line, '$'),
+                '='
+                )
+            );
+        });
     }
 }

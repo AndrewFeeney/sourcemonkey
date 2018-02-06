@@ -9,7 +9,7 @@ use WebSpanner\SourceMonkey\Models\Property;
 class GetPropertyTest extends TestCase
 {
     /** @test */
-    function the_get_property_method_returns_a_property_class_representing_a_classes_property()
+    public function the_get_property_method_returns_a_property_class_representing_a_classes_property()
     {
         // Copy the default test file into our testing directory
         $testFilePath = $this->copyNewTestFile('PSR4Class.php');
@@ -19,10 +19,8 @@ class GetPropertyTest extends TestCase
 
         // Do the work
         $property = $sourceMonkey->getProperty('array');
-
+        dd(__LINE__);
         // Assert that we get a Property object
         $this->assertInstanceOf(Property::class, $property);
     }
 }
-
-

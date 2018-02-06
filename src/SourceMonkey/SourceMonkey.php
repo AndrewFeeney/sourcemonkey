@@ -2,6 +2,7 @@
 
 namespace WebSpanner\SourceMonkey;
 
+use Illuminate\Support\Str;
 use WebSpanner\SourceMonkey\Exceptions\MonkeyNeedsAFileException;
 use WebSpanner\SourceMonkey\Models\PHPClass;
 
@@ -22,7 +23,7 @@ class SourceMonkey
     {
         $fileContents = $this->getLines();
 
-        array_splice($fileContents, $lineNumber, 0, [$string]);
+        array_splice($fileContents, (int) $lineNumber, 0, [$string]);
 
         $this->write(implode("\n", $fileContents));
     }
@@ -36,8 +37,8 @@ class SourceMonkey
     {
         $lines = [];
 
-        foreach(file($this->getPath()) as $key => $line) {
-            $lines[$key + 1] = str_replace("\n", "", $line);
+        foreach (file($this->getPath()) as $key => $line) {
+            $lines[$key + 1] = str_replace("\n", '', $line);
         }
 
         return $lines;
@@ -55,6 +56,45 @@ class SourceMonkey
         }
 
         return $this->path;
+    }
+
+    /**
+     * Returns the line number of the first line which contains the given string
+     */
+    public function firstLineWithString($string)
+    {
+        foreach ($this->getLines() as $lineNumber => $lineText) {
+            if (Str::contains($lineText, $string)) {
+                return $lineNumber;
+            }
+        }
+    }
+
+    /**
+     * Delete the line at the given number
+     *
+     * @param int $lineNumber
+     **/
+    public function deleteLine($lineNumber)
+    {
+        $fileContents = $this->getLines();
+
+        array_splice($fileContents, $lineNumber - 1, 1);
+
+        $this->write(implode("\n", $fileContents));
+    }
+
+    /**
+     * Replace the contents of the given line number with the given string
+     *
+     * @param int $lineNumber
+     * @param string $string
+     */
+    public function replaceLine($lineNumber, $string)
+    {
+        $this->insertLineAfter($string, $lineNumber);
+
+        $this->deleteLine($lineNumber);
     }
 
     /**
