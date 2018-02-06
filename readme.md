@@ -18,9 +18,9 @@ Pass the fully qualified path to the file which you are editing into the constru
 
 ### Inserting a line in to a file
 
-To insert a string into a file after a given line number, moving all later text further down the page use the `insertAfterLine()` method
+To insert a string into a file after a given line number, moving all later text further down the page use the `insertLineAfter()` method
 
-    $sourceMonkey->insertAfterLine('some string', 42);
+    $sourceMonkey->insertLineAfter('some string', 42);
 
 ### Writing a string to a file
 
